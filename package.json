@@ -1,0 +1,19 @@
+{
+  "name": "openclaw-skill-vector-memory",
+  "version": "1.0.0",
+  "description": "Semantic vector memory skill for OpenClaw — indexes workspace files and chat sessions for intelligent recall",
+  "main": "lib.js",
+  "scripts": {
+    "index": "node index.js",
+    "search": "node search.js",
+    "ingest": "node ingest.js",
+    "ingest-sessions": "node ingest-sessions.js"
+  },
+  "keywords": ["openclaw", "skill", "vector", "memory", "embeddings", "semantic-search", "rag"],
+  "author": "exbald",
+  "license": "MIT",
+  "dependencies": {
+    "glob": "^13.0.6",
+    "openai": "^6.22.0"
+  }
+}
