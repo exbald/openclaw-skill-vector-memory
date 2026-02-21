@@ -1,13 +1,25 @@
 # openclaw-skill-vector-memory
 
-Semantic vector memory skill for [OpenClaw](https://github.com/nichochar/openclaw) — indexes workspace files and chat sessions for intelligent recall using OpenAI embeddings.
+**A supplementary memory layer for [OpenClaw](https://github.com/nichochar/openclaw)** that expands what gets indexed beyond the built-in `memory_search`. While OpenClaw's native search covers `MEMORY.md` and `memory/*.md`, this skill indexes your *entire* workspace — tasks, CRM, goals, projects, skills, and live chat transcripts.
 
-## What it does
+It's not a replacement for built-in memory. It's the wider net.
 
-- **Indexes** all markdown files in your OpenClaw workspace (memory, tasks, CRM, skills, projects)
-- **Ingests** chat session transcripts from OpenClaw session logs
-- **Searches** semantically — find relevant content by meaning, not just keywords
-- Uses OpenAI `text-embedding-3-small` (1536 dimensions) with cosine similarity
+## How it compares to built-in `memory_search`
+
+**Built-in `memory_search`:**
+- Indexes `MEMORY.md` + `memory/*.md` only
+- Uses SQLite with FTS5 (full-text) + sqlite-vec (vector) — hybrid search
+- More sophisticated search engine with embedding cache, file hashing, incremental updates
+- No setup required — ships with OpenClaw
+
+**This skill (vector-memory):**
+- Indexes ALL `.md` files in workspace (tasks, CRM, goals, projects, skills, everything)
+- Indexes live chat transcripts via cron (every minute) — conversations are searchable in near real-time
+- Uses JSON storage + cosine similarity — simpler, but works fine for typical workspace sizes (<10k chunks)
+- Vector-only search (no keyword/FTS component)
+- Simple, portable — no native dependencies, works anywhere Node.js runs
+
+**The real value add is scope, not search quality.** Built-in search is technically better at finding things within memory files. This skill lets you find things that built-in search doesn't even know about — your task files, project docs, CRM notes, and what was said in yesterday's chat.
 
 ## Installation
 
@@ -22,11 +34,9 @@ npm install
 
 ## Configuration
 
-| Env Variable | Description | Default |
-|---|---|---|
-| `OPENAI_API_KEY` | **Required.** OpenAI API key | Reads from `~/.clawdbot/.env` or `~/.openclaw/.env` |
-| `VECTOR_MEMORY_WORKSPACE` | Workspace root to index | Auto-detected (looks for `AGENTS.md`, `SOUL.md`, `memory/`) |
-| `VECTOR_MEMORY_DATA_DIR` | Where to store the vector index | `./data` in skill directory |
+- `OPENAI_API_KEY` — **Required.** OpenAI API key. Reads from `~/.clawdbot/.env` or `~/.openclaw/.env`
+- `VECTOR_MEMORY_WORKSPACE` — Workspace root to index. Auto-detected (looks for `AGENTS.md`, `SOUL.md`, `memory/`)
+- `VECTOR_MEMORY_DATA_DIR` — Where to store the vector index. Default: `./data` in skill directory
 
 ## Usage
 

@@ -1,11 +1,11 @@
 ---
 name: vector-memory
-description: Semantic vector search over workspace files, notes, and chat sessions using OpenAI embeddings. Use for recalling past conversations, finding relevant context, and searching across all workspace content.
+description: Supplementary memory layer — semantic vector search over ALL workspace files and chat sessions using OpenAI embeddings. Expands coverage beyond built-in memory_search (which only indexes MEMORY.md + memory/*.md). Use for recalling past conversations, finding context in tasks/CRM/projects, and searching across the full workspace.
 ---
 
 # Vector Memory - Semantic Search
 
-Semantic search over all workspace content using OpenAI embeddings.
+Supplementary semantic search over all workspace content using OpenAI embeddings. Complements built-in `memory_search` by covering files it doesn't index.
 
 ## Usage
 
